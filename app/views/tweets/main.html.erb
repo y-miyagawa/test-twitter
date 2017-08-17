@@ -1,4 +1,4 @@
-<div><%= link_to "ログアウト", "/logout" %>&nbsp;&nbsp;<%= link_to "ユーザー一覧", "/users" %></div>
+<div><%= link_to "ログアウト", "/logout" %>&nbsp;&nbsp;<%= link_to "マイページ", "/users/show/" + current_user.id.to_s %>&nbsp;&nbsp;<%= link_to "ユーザー一覧", "/users" %></div>
 
 <% flash.each do |key, value|%>
     <%= content_tag(:div, value, class: "#{key}") %>
@@ -16,9 +16,11 @@
     <% @tweets.each do |tweet| %>
         <div>
             --------------------------------<br>
-            <% user = User.find_by(:id => tweet.uid) %>
-            <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
-            <%= tweet.content %>
+            <% if tweet.rtid == 0 then %>
+                <% user = User.find_by(:id => tweet.uid) %>
+                <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
+                <%= tweet.content %>
+            <% end %>
         </div>
     <% end %>
 </div>
