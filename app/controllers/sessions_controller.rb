@@ -2,7 +2,8 @@ class SessionsController < ApplicationController
     def new
         if logged_in? then
             flash[:danger] = "すでにログインしています"
-            redirect_to :controller =>"tweets", :action =>"main"    
+            redirect_to :controller =>"tweets", :action =>"main"
+            return
         end
     end
     
@@ -10,7 +11,8 @@ class SessionsController < ApplicationController
         if logged_in? then
             flash[:danger] = "すでにログインしています"
             redirect_to :controller =>"tweets", :action =>"main"
-        end
+            return
+        end    
             
         user = User.find_by(username: params[:session][:username].downcase)
         if user && user.authenticate(params[:session][:password])

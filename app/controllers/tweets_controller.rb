@@ -18,7 +18,13 @@ class TweetsController < ApplicationController
   end
     
   def create
-    if logged_in? then
+    if logged_in? == false then
+        flash[:danger] = "ログインしてください"
+        redirect_to :action => "index"    
+    elsif params[:tweet][:content] == "" then
+        flash[:danger] = "ツイートを入力してください"
+        redirect_to :action => "main"
+    else
         @tweet = Tweet.new
         @tweet.uid = current_user.id
         @tweet.rtid = "0"
@@ -26,9 +32,6 @@ class TweetsController < ApplicationController
         @tweet.save
         flash[:success] = "ツイートしました！"
         redirect_to :action => "main"
-    else
-        flash[:danger] = "ログインしてください"
-        redirect_to :action => "index"
     end
   end
     
