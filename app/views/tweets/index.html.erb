@@ -9,7 +9,7 @@
         <div>
             --------------------------------<br>
             <% user = User.find_by(:id => tweet.uid) %>
-            <%= user.name %></br>
+            <%= link_to user.name, "/users/show/" + user.id.to_s %></br>
             <%= tweet.content %>
         </div>
     <% end %>
