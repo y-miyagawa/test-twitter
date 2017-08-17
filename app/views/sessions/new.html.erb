@@ -1,0 +1,23 @@
+<h1>Log in</h1>
+
+<% if logged_in? then %>
+    <div>
+    すでにログインしています。</br>
+    <%= link_to "ログアウト", "/logout" %>
+    </div>
+<% else %>
+    <div>
+        <%= form_for (:session) do |f| %>
+            <%= f.label :username %>
+            <%= f.text_field :username, class: 'form-control' %>
+        </br>
+            <%= f.label :password %>
+            <%= f.password_field :password, class: 'form-control' %>
+        </br>
+            <%= f.submit "ログイン", class: "btn btn-primary"%>
+        <% end %>
+        <% flash.each do |key, value|%>
+            <%= content_tag(:div, value, class: "#{key}") %>
+        <% end %>
+    </div>
+<% end %>

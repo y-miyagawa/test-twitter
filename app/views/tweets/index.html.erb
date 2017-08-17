@@ -1,0 +1,7 @@
+<%= link_to "ログイン", "/login" %></br>
+<% @tweets.each do |tweet| 
+    @user =User.find_by(:id => tweet.uid)%>
+    --------------------------------<br>
+    <p><%= @user.name %>
+    <%= tweet.content %><p>
+<% end %>

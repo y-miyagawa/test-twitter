@@ -1,0 +1,14 @@
+<div>
+    <h1><%=@user[:name]+"@"+@user[:username]%></h1>
+    <p><%=@user[:about]%><p>
+</div>
+
+<div>
+    フォロワー一覧</br>
+    <% @followers.each do |follower|%>
+        <div>
+            <%= link_to follower.name, "/users/show/" + follower.id.to_s %></br>
+            ------------------------------</br>
+    </div>
+    <% end %>
+</div>
