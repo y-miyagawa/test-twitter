@@ -9,10 +9,11 @@ Rails.application.routes.draw do
 
     get 'tweets' => 'tweets#index'
     #get 'tweets/new'
-    get 'tweets/show'
+    #get 'tweets/show'
     get 'tweets/main'
     post 'tweets' => "tweets#create"
     
+    get "users" => "users#index"
     get 'users/index'
     get 'users/show/:uid' => "users#show"
 

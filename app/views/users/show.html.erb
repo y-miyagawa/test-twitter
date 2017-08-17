@@ -1,15 +1,17 @@
-<div><%= link_to "トップ", "/tweets" %></div>
-
+<div><%= link_to "トップ", "/tweets" %>
+    <%if logged_in? then %>
+    &nbsp;&nbsp;<%= link_to "ユーザー一覧", "/users" %></div>
+    <% end %>
 <div>
     <h1><%=@user[:name]+"@"+@user[:username]%></h1>
     <p><%=@user[:about]%><p>
 </div>
 
 <div>
-    フォロワー一覧</br>
+    フォローしている人</br>
     <% @followers.each do |follower|%>
         <div>
-            <%= link_to follower.name, "/users/show/" + follower.id.to_s %></br>
+            <%= link_to follower.name + "@" + follower.username, "/users/show/" + follower.id.to_s %></br>
             ------------------------------</br>
     </div>
     <% end %>
