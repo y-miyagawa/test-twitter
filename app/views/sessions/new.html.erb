@@ -1,12 +1,7 @@
-<h1>Log in</h1>
+<div><%= link_to "トップ", "/tweets" %></div>
 
-<% if logged_in? then %>
-    <div>
-    すでにログインしています。</br>
-    <%= link_to "ログアウト", "/logout" %>
-    <%#トップへ%>
-    </div>
-<% else %>
+<div>
+    <h1>Log in</h1>
     <div>
         <%= form_for (:session) do |f| %>
             <%= f.label :username %>
@@ -21,4 +16,4 @@
             <%= content_tag(:div, value, class: "#{key}") %>
         <% end %>
     </div>
-<% end %>
+</div>

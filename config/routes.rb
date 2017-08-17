@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
-    
+
     root :to => "tweets#index"
     
     get 'login' => 'sessions#new'
@@ -8,8 +8,9 @@ Rails.application.routes.draw do
     delete 'logout' => 'sessions#destroy'
 
     get 'tweets' => 'tweets#index'
+    #get 'tweets/new'
     get 'tweets/show'
-    get 'tweets/new'
+    get 'tweets/main'
     post 'tweets' => "tweets#create"
     
     get 'users/index'

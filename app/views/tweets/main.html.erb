@@ -1,8 +1,16 @@
-<div><%= link_to "ログイン", "/login" %></div>
+<div><%= link_to "ログアウト", "/logout" %></div>
 
 <% flash.each do |key, value|%>
     <%= content_tag(:div, value, class: "#{key}") %>
 <% end %>
+
+<div>
+<%= form_for Tweet.new do |f| %>
+    <%= f.label :content %>
+    <%= f.text_area :content %>
+    <%= f.submit %>
+<% end %>
+</div>
 
 <div>
     <% @tweets.each do |tweet| %>
