@@ -31,7 +31,7 @@ class TweetsController < ApplicationController
     else
         @tweet = Tweet.new
         @tweet.uid = current_user.id
-        @tweet.rtid = "0"
+        @tweet.rtid = TYPE_NOT_RETWEET
         @tweet.content = params[:tweet][:content]
         @tweet.save
         flash[:success] = "ツイートしました！"
