@@ -6,8 +6,8 @@
         <%= form_tag(:controller => "follows", :action => "create") do %>
             <%= hidden_field_tag "mode", "many" %>
             <% @users.each do |user| %>
-                <%= hidden_field_tag "newfol[][id]", user.id %>
-                <%= check_box_tag "newfol[][flag]" %>
+                <%= hidden_field_tag "new_follower[][id]", user.id %>
+                <%= check_box_tag "new_follower[][flag]" %>
                 <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
             <% end %>
             <%= submit_tag "フォローする"%>

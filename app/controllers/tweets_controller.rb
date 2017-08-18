@@ -8,7 +8,7 @@ class TweetsController < ApplicationController
   end
       
   def main
-      if !(logged_in?) then
+      if !logged_in? then
           redirect_to :action => "index"
       else 
           @tweets = Tweet.find_by_sql(["SELECT * FROM tweets WHERE uid = ? OR uid IN (SELECT fid FROM follows WHERE uid = ? ) ORDER BY created_at DESC", current_user.id, current_user.id])
