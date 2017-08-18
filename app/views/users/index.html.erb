@@ -8,16 +8,14 @@
             <% @users.each do |user| %>
                 <%= hidden_field_tag "newfol[][id]", user.id %>
                 <%= check_box_tag "newfol[][flag]" %>
-                <%= user.name + "@" + user.username%>
-                </br>
+                <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
             <% end %>
             <%= submit_tag "フォローする"%>
         <% end %>
     <% else %>
         <% @users.each do |user| %>
             &nbsp;&nbsp;&nbsp;&nbsp;
-            <%= user.name + "@" + user.username %>
-            </br>
+            <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
         <% end %>
     <% end %>
 </div>

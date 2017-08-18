@@ -6,11 +6,13 @@
 
 <div>
     <% @tweets.each do |tweet| %>
+        <%if tweet.rtid == TYPE_NOT_RETWEET %>
         <div>
             --------------------------------<br>
             <% user = User.find_by(:id => tweet.uid) %>
             <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
             <%= tweet.content %>
         </div>
+        <% end %>
     <% end %>
 </div>
