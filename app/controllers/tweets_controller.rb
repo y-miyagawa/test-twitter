@@ -24,17 +24,26 @@ class TweetsController < ApplicationController
   def create
     if !logged_in? then
         flash[:danger] = "ログインしてください"
-        redirect_to :action => "index"    
-    elsif params[:tweet][:content] == "" then
-        flash[:danger] = "ツイートを入力してください"
-        redirect_to :action => "main"
+        redirect_to :action => "index"
+        
+    elsif params[:tweet][:rtid].to_i == TYPE_NOT_RETWEET
+        if params[:tweet][:content] == "" then
+            flash[:danger] = "ツイートを入力してください"
+            redirect_to :action => "main"
+        else
+            @tweet = Tweet.new
+            @tweet.uid = current_user.id
+            @tweet.rtid = TYPE_NOT_RETWEET
+            @tweet.content = params[:tweet][:content]
+            @tweet.save
+            flash[:success] = "ツイートしました！"
+            redirect_to :action => "main"
+        end
     else
-        @tweet = Tweet.new
-        @tweet.uid = current_user.id
-        @tweet.rtid = TYPE_NOT_RETWEET
-        @tweet.content = params[:tweet][:content]
-        @tweet.save
-        flash[:success] = "ツイートしました！"
+        if Tweet.find_by(id: params[:tweet][:rtid].to_i).uid != current_user.id then
+                t = Tweet.find_or_create_by(uid: current_user.id, rtid: params[:tweet][:rtid].to_i)
+        end
+        flash[:success] = "リツイートしました！" + params[:tweet][:rtid].to_s
         redirect_to :action => "main"
     end
   end
