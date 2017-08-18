@@ -3,13 +3,13 @@
     &nbsp;&nbsp;<%= link_to "ユーザー一覧", "/users" %></div>
     <% end %>
 <div>
-    <h1><%=@user[:name]+"@"+@user[:username]%></h1>
-    <p><%=@user[:about]%><p>
+    <h1><%= @user[:name]+"@"+@user[:username] %></h1>
+    <p><%= simple_format(h(@user[:about])) %><p>
 </div>
 
 <div>
     フォローしている人</br>
-    <% @followers.each do |follower|%>
+    <% @followers.each do |follower| %>
         <div>
             <%= link_to follower.name + "@" + follower.username, "/users/show/" + follower.id.to_s %></br>
             ------------------------------</br>

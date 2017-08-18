@@ -11,7 +11,7 @@
             --------------------------------<br>
             <% user = User.find_by(:id => tweet.uid) %>
             <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
-            <%= tweet.content %>
+            <%= simple_format(h(tweet.content)) %>
         </div>
         <% end %>
     <% end %>

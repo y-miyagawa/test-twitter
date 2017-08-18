@@ -6,10 +6,9 @@
 
 <div>
 <%= form_for Tweet.new do |f| %>
-    <%= f.label :content, "ツイートする" %>
     <%= f.text_area :content %>
     <%= f.hidden_field :rtid, value: TYPE_NOT_RETWEET %>
-    <%= f.submit "送信"%>
+    <%= f.submit "ツイートする"%>
 <% end %>
 </div>
 
@@ -20,16 +19,16 @@
             <% if tweet.rtid == TYPE_NOT_RETWEET then %>
                 <% user = User.find_by(:id => tweet.uid) %>
                 <% sendId = tweet.id%>
-                <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
-                <%= tweet.content %>
+                <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %>
+                <%= simple_format(h(tweet.content)) %>
             <% else %>
                 <% user = User.find_by(:id => tweet.uid) %>
                 <% originalTweet = Tweet.find_by(:id => tweet.rtid) %>
                 <% originalUser = User.find_by(:id => originalTweet.uid) %>
                 <% sendId = originalTweet.id%>
-                <%= link_to originalUser.name + "@" + originalUser.username, "/users/show/" + originalUser.id.to_s %></br>
-                <%= originalTweet.content %></br>
-                <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %>さんがリツイート</br>
+                <%= link_to originalUser.name + "@" + originalUser.username, "/users/show/" + originalUser.id.to_s %>&nbsp;&nbsp;
+                <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %>さんがリツイート
+                <%= simple_format(h(originalTweet.content)) %>
             <% end %>
             <%= form_for Tweet.new do |f| %>
                 <%= f.hidden_field :rtid, value: sendId %>
