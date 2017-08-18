@@ -16,6 +16,10 @@ Rails.application.routes.draw do
     get "users" => "users#index"
     get 'users/index'
     get 'users/show/:uid' => "users#show"
-
+    
+    post "users" => "follows#create"
+    #get 'follows/index'
+    #get 'follows/create'
+    
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 end

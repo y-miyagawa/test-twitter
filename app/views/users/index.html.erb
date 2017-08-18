@@ -2,10 +2,22 @@
 
 <div>
     ユーザー一覧</br>
-    <% @users.each do |user|%>
-        <div>
-            <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
-            ------------------------------</br>
-    </div>
+    <% if logged_in? then %>
+        <%= form_tag(:controller => "follows", :action => "create") do %>
+            <%= hidden_field_tag "mode", "many" %>
+            <% @users.each do |user| %>
+                <%= hidden_field_tag "newfol[][id]", user.id %>
+                <%= check_box_tag "newfol[][flag]" %>
+                <%= user.name + "@" + user.username%>
+                </br>
+            <% end %>
+            <%= submit_tag "フォローする"%>
+        <% end %>
+    <% else %>
+        <% @users.each do |user| %>
+            &nbsp;&nbsp;&nbsp;&nbsp;
+            <%= user.name + "@" + user.username %>
+            </br>
+        <% end %>
     <% end %>
 </div>

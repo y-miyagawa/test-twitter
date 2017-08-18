@@ -22,7 +22,7 @@ class TweetsController < ApplicationController
   end
     
   def create
-    if logged_in? == false then
+    if !logged_in? then
         flash[:danger] = "ログインしてください"
         redirect_to :action => "index"    
     elsif params[:tweet][:content] == "" then

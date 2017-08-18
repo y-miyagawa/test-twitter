@@ -11,5 +11,10 @@ class UsersController < ApplicationController
       @followers = User.find_by_sql(["SELECT users.id AS id, name, username, t.created_at FROM users JOIN (SELECT fid, created_at FROM follows where uid = ?) AS t ON users.id = fid", @user.id])      
   end
     
+  def create
+     
+      
+      redirect_to :action => "index"
+  end
 end
 

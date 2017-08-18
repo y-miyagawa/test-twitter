@@ -6,9 +6,9 @@
 
 <div>
 <%= form_for Tweet.new do |f| %>
-    <%= f.label :content %>
+    <%= f.label :content, "ツイートする" %>
     <%= f.text_area :content %>
-    <%= f.submit %>
+    <%= f.submit "送信"%>
 <% end %>
 </div>
 

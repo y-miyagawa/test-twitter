@@ -1,3 +1,4 @@
 ##定数定義
 
 TYPE_NOT_RETWEET = 0
+ADD_FOLLOW_YES = "1"
