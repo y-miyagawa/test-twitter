@@ -10,7 +10,16 @@
         <div>
             --------------------------------<br>
             <% user = User.find_by(:id => tweet.uid) %>
-            <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %></br>
+            <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %>&nbsp;&nbsp;
+            <% if Time.zone.now.day - tweet.created_at.day > 0 then %>
+                <%= Time.zone.now.day - tweet.created_at.day %>日前
+            <% elsif Time.zone.now.hour - tweet.created_at.hour > 0 then %>
+                <%= Time.zone.now.hour - tweet.created_at.hour %>時間前
+            <% elsif Time.zone.now.min - tweet.created_at.hour > 0 then %>
+                <%= Time.zone.now.min - tweet.created_at.hour %>分前
+            <% elsif Time.zone.now.sec - tweet.created_at.hour > 0 then %>
+                <%= Time.zone.now.sec - tweet.created_at.hour %>秒前
+            <% end %>
             <%= simple_format(h(tweet.content)) %>
         </div>
         <% end %>

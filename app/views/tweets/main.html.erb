@@ -19,7 +19,16 @@
             <% if tweet.rtid == TYPE_NOT_RETWEET then %>
                 <% user = User.find_by(:id => tweet.uid) %>
                 <% send_tweet_id = tweet.id%>
-                <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %>
+                <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %>&nbsp;&nbsp;
+                <% if Time.zone.now.day - tweet.created_at.day > 0 then %>
+                    <%= Time.zone.now.day - tweet.created_at.day %>日前
+                <% elsif Time.zone.now.hour - tweet.created_at.hour > 0 then %>
+                    <%= Time.zone.now.hour - tweet.created_at.hour %>時間前
+                <% elsif Time.zone.now.min - tweet.created_at.hour > 0 then %>
+                    <%= Time.zone.now.min - tweet.created_at.hour %>分前
+                <% elsif Time.zone.now.sec - tweet.created_at.hour > 0 then %>
+                    <%= Time.zone.now.sec - tweet.created_at.hour %>秒前
+                <% end %>
                 <%= simple_format(h(tweet.content)) %>
             <% else %>
                 <% user = User.find_by(:id => tweet.uid) %>
@@ -27,6 +36,15 @@
                 <% original_user = User.find_by(:id => original_tweet.uid) %>
                 <% send_tweet_id = original_tweet.id%>
                 <%= link_to original_user.name + "@" + original_user.username, "/users/show/" + original_user.id.to_s %>&nbsp;&nbsp;
+                <% if Time.zone.now.day - original_tweet.created_at.day > 0 then %>
+                    <%= Time.zone.now.day - original_tweet.created_at.day %>日前
+                <% elsif Time.zone.now.hour - original_tweet.created_at.hour > 0 then %>
+                    <%= Time.zone.now.hour - original_tweet.created_at.hour %>時間前
+                <% elsif Time.zone.now.min - original_tweet.created_at.hour > 0 then %>
+                    <%= Time.zone.now.min - original_tweet.created_at.hour %>分前
+                <% elsif Time.zone.now.sec - original_tweet.created_at.hour > 0 then %>
+                    <%= Time.zone.now.sec - original_tweet.created_at.hour %>秒前
+                <% end %>&nbsp;&nbsp;
                 <%= link_to user.name + "@" + user.username, "/users/show/" + user.id.to_s %>さんがリツイート
                 <%= simple_format(h(original_tweet.content)) %>
             <% end %>
