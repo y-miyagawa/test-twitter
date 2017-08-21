@@ -2,23 +2,33 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#user-block     {position: fixed;
-                top: 65px;
-                float: left;
-                width: 200px;
-                -webkit-box-sizing: border-box;
-                -moz-box-sizing: border-box;
-                box-sizing: border-box;
-                border: solid 1px #aaaaaa;
-                padding : 30px}
+#user-block {z-index: 2;
+            background-color: #ffffff;
+            position: fixed;
+            top: 35px;
+            width: 800px;
+            -webkit-box-sizing: border-box;
+            -moz-box-sizing: border-box;
+            box-sizing: border-box;
+            border: solid 1px #aaaaaa;
+            padding : 30px}
 
 #user-head      {border-bottom: solid 1px #aaaaaa;
                 padding-bottom: 5px;
                 margin-bottom: 5px}
+#bottom-block   {position: relative;
+                top: 180px}
+
+#left-block    {potision: relative;
+                float: left;
+                width: 400px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box}
 
 #right-block    {potision: relative;
                 float: right;
-                width: 570px;
+                width: 400px;
                 -webkit-box-sizing: border-box;
                 -moz-box-sizing: border-box;
                 box-sizing: border-box}

@@ -1,18 +1,30 @@
 <header>
     <div id = "head-fixed">
-    test-twitter
-    <nav><ul>
-        <li><%= link_to "トップ", "/tweets" %></li>
-        <% if logged_in? then %>
-            <li><%= link_to "ログアウト", "/logout" %></li>
-            <li><%= link_to "ユーザー一覧", "/users" %></li>
-        <% else %>
-            <li><%= link_to "ログイン", "/login" %></li>
-        <% end %>
-    </ul></nav>
-    <% flash.each do |key, value|%>
-        <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
+        <div id = "head-top">
+            test-twitter
+            <% if logged_in? then %>
+            &nbsp;&nbsp;<font size = "-1">ログイン中:</font><%= current_user.name %><font size = "-1">@<%= current_user.username %></font>
+            <% end %>
+        <nav><ul>
+            <li><%= link_to "トップ", "/tweets" %></li>
+            <% if logged_in? then %>
+                <% if current_user.id != @user.id then %>
+                    <li><%= link_to "マイページ", "/users/show/" + current_user.id.to_s %></li>
+                <% else %>
+            <li>マイページ</li>
+                <% end %>
+                <li><%= link_to "ログアウト", "/logout" %></li>
+                <li><%= link_to "ユーザー一覧", "/users" %></li>
+            <% else %>
+                <li><%= link_to "ログイン", "/login" %></li>
+            <% end %>
+            </ul></nav>
+        </div>
+        <div id = "head-bottom">
+            <% flash.each do |key, value|%>
+                <%= content_tag(:div, value, class: "#{key}") %>
+            <% end %>
+        </div>
     </div>
 </header>
 
@@ -20,28 +32,27 @@
 <div id = "container">
     <div id = "user-block">
         <div id = "user-head">
-            <font size = "+2"><%= @user.name %></font>
-            </br>@<%= @user.username %>
+            <font size = "+2"><%= @user.name %></font>@<%= @user.username %>
+            <% if logged_in? && current_user.id != @user.id then %>
+                <font size = "-2">
+                <% if Follow.find_by(uid: current_user.id, fid: @user.id) == nil then %>
+                    &nbsp;&nbsp;あなたはこのユーザーをフォローしていません&nbsp;&nbsp;
+                <% else %>
+                    &nbsp;&nbsp;あなたはこのユーザーをフォローしています&nbsp;&nbsp;
+                <% end %>
+                <% if Follow.find_by(uid: @user.id, fid: current_user.id) == nil then %>
+                    このユーザーはあなたをフォローしていません
+                <% else %>
+                    このユーザーはあなたをフォローしています
+                <% end %>
+                </font>
+            <% end %>
         </div>
         <%= simple_format(h(@user.about)) %>
-        <% if logged_in? && current_user.id != @user.id then %>
-            <font size = "-2">
-            <% if Follow.find_by(uid: current_user.id, fid: @user.id) == nil then %>
-                このユーザーをフォローしていません</br>
-            <% else %>
-                このユーザーをフォローしています</br>
-            <% end %>
-            <% if Follow.find_by(uid: @user.id, fid: current_user.id) == nil then %>
-                あなたをフォローしていません
-            <% else %>
-                あなたをフォローしています
-            <% end %>
-            </font>
-        <% end %>
     </div>
 
-    <div id = "right-block">
-        <div>
+    <div id = "bottom-block">
+        <div id = "left-block">
             フォローしている人</br>
             <% @followers.each do |follower| %>
                 <div>
@@ -51,7 +62,7 @@
             <% end %>
         </div>
 
-        <div>
+        <div id = "right-block">
             最近のツイート</br>
             <% @tweets.each do |tweet| %>
                 <div>

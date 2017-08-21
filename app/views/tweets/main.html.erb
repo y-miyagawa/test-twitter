@@ -4,6 +4,7 @@
             test-twitter&nbsp;&nbsp;
             <font size = "-1">ログイン中:</font><%= current_user.name %><font size = "-1">@<%= current_user.username %></font>
         <nav><ul>
+            <li>トップ</li>
             <li><%= link_to "マイページ", "/users/show/" + current_user.id.to_s %></li>
             <li><%= link_to "ログアウト", "/logout" %></li>
             <li><%= link_to "ユーザー一覧", "/users" %></li>

@@ -1,17 +1,22 @@
 <header>
     <div id = "head-fixed">
-    test-twitter
-    <nav><ul>
-        <li><%= link_to "ログイン", "/login" %></li>
-    </ul></nav>
-    <% flash.each do |key, value|%>
-        <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
+        <div id = "head-top">
+            test-twitter
+            <nav><ul>
+                <li>トップ</li>
+                <li><%= link_to "ログイン", "/login" %></li>
+            </ul></nav>
+        </div>
+        <div id = "head-bottom">
+            <% flash.each do |key, value|%>
+                <%= content_tag(:div, value, class: "#{key}") %>
+            <% end %>
+        </div>
     </div>
 </header>
 
 <div id ="container">
-    <div id = "tweet-block">
+    <div id = "left-tweet-block">
         <% @tweets.each do |tweet| %>
             <%if tweet.rtid == TYPE_NOT_RETWEET %>
             <div class = "tweet-content">

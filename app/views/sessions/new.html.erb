@@ -10,6 +10,23 @@
     </div>
 </header>
 
+<header>
+    <div id = "head-fixed">
+        <div id = "head-top">
+            test-twitter
+        <nav><ul>
+            <li><%= link_to "トップ", "/tweets" %></li>
+            <li>ログイン</li>
+            </ul></nav>
+        </div>
+        <div id = "head-bottom">
+            <% flash.each do |key, value|%>
+                <%= content_tag(:div, value, class: "#{key}") %>
+            <% end %>
+        </div>
+    </div>
+</header>
+
 <div id ="container">
     <h1>Log in</h1>
     <div>
@@ -21,9 +38,6 @@
             <%= f.password_field :password, class: 'form-control' %>
         </br>
             <%= f.submit "ログイン", class: "btn btn-primary"%>
-        <% end %>
-        <% flash.each do |key, value|%>
-            <%= content_tag(:div, value, class: "#{key}") %>
         <% end %>
     </div>
 </div>

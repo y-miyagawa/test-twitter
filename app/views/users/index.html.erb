@@ -1,17 +1,26 @@
 <header>
     <div id = "head-fixed">
-    test-twitter
-    <nav><ul>
-        <li><%= link_to "トップ", "/tweets" %></li>
-        <% if logged_in? then %>
-            <li><%= link_to "ログアウト", "/logout" %></li>
-        <% else %>
-            <li><%= link_to "ログイン", "/login" %></li>
-        <% end %>
-    </ul></nav>
-    <% flash.each do |key, value|%>
-        <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
+        <div id = "head-top">
+            test-twitter
+            <% if logged_in? then %>
+            &nbsp;&nbsp;<font size = "-1">ログイン中:</font><%= current_user.name %><font size = "-1">@<%= current_user.username %></font>
+            <% end %>
+        <nav><ul>
+            <li><%= link_to "トップ", "/tweets" %></li>
+            <% if logged_in? then %>
+                <li><%= link_to "マイページ", "/users/show/" + current_user.id.to_s %></li>
+                <li><%= link_to "ログアウト", "/logout" %></li>
+                <li>ユーザー一覧</li>
+            <% else %>
+                <li><%= link_to "ログイン", "/login" %></li>
+            <% end %>
+            </ul></nav>
+        </div>
+        <div id = "head-bottom">
+            <% flash.each do |key, value|%>
+                <%= content_tag(:div, value, class: "#{key}") %>
+            <% end %>
+        </div>
     </div>
 </header>
 
