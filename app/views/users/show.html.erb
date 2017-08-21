@@ -1,66 +1,80 @@
 <header>
+    <div id = "head-fixed">
     test-twitter
     <nav><ul>
         <li><%= link_to "トップ", "/tweets" %></li>
         <% if logged_in? then %>
-        <li><%= link_to "ユーザー一覧", "/users" %></li>
+            <li><%= link_to "ログアウト", "/logout" %></li>
+            <li><%= link_to "ユーザー一覧", "/users" %></li>
+        <% else %>
+            <li><%= link_to "ログイン", "/login" %></li>
         <% end %>
     </ul></nav>
     <% flash.each do |key, value|%>
         <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
+    </div>
 </header>
 
-<div>
-    <h1><%= @user.name + "@" + @user.username %></h1>
-    <p><%= simple_format(h(@user.about)) %></p>
-    <% if logged_in? && current_user.id != @user.id then %>
-        <p>
-        <% if Follow.find_by(uid: current_user.id, fid: @user.id) == nil then %>
-            あなたはこのユーザーをフォローしていません</br>
-        <% else %>
-            あなたはこのユーザーをフォローしています</br>
-        <% end %>
-        <% if Follow.find_by(uid: @user.id, fid: current_user.id) == nil then %>
-            このユーザーをあなたをフォローしていません
-        <% else %>
-            このユーザーはあなたをフォローしています
-        <% end %>
-        </p>
-    <% end %>
-</div>
-
-<div>
-    フォローしている人</br>
-    <% @followers.each do |follower| %>
-        <div>
-            <%= link_to follower.name + "@" + follower.username, "/users/show/" + follower.id.to_s %></br>
-            --------------------------------</br>
+<body>
+<div id = "container">
+    <div id = "user-block">
+        <div id = "user-head">
+            <font size = "+2"><%= @user.name %></font>
+            </br>@<%= @user.username %>
         </div>
-    <% end %>
-</div>
-
-<div>
-    最近のツイート</br>
-    <% @tweets.each do |tweet| %>
-        <div>
-            <% if tweet.rtid == TYPE_NOT_RETWEET then %>
-                <% send_tweet_id = tweet.id%>
-                <%= link_to @user.name + "@" + @user.username, "/users/show/" + @user.id.to_s %>&nbsp;&nbsp;<%= write_time tweet.created_at %>
-                <%= simple_format(h(tweet.content)) %>
+        <%= simple_format(h(@user.about)) %>
+        <% if logged_in? && current_user.id != @user.id then %>
+            <font size = "-2">
+            <% if Follow.find_by(uid: current_user.id, fid: @user.id) == nil then %>
+                このユーザーをフォローしていません</br>
             <% else %>
-                <% original_tweet = Tweet.find_by(:id => tweet.rtid) %>
-                <% original_user = User.find_by(:id => original_tweet.uid) %>
-                <% send_tweet_id = original_tweet.id%>
-                <%= link_to original_user.name + "@" + original_user.username, "/users/show/" + original_user.id.to_s %>&nbsp;&nbsp;<%= write_time original_tweet.created_at %>&nbsp;&nbsp;
-                <%= link_to @user.name + "@" + @user.username, "/users/show/" + @user.id.to_s %>さんがリツイート
-                <%= simple_format(h(original_tweet.content)) %>
+                このユーザーをフォローしています</br>
             <% end %>
-            <%= form_for Tweet.new do |f| %>
-                <%= f.hidden_field :rtid, value: send_tweet_id %>
-            <%= f.submit "RT" %></br>
-            --------------------------------</br>
+            <% if Follow.find_by(uid: @user.id, fid: current_user.id) == nil then %>
+                あなたをフォローしていません
+            <% else %>
+                あなたをフォローしています
+            <% end %>
+            </font>
+        <% end %>
+    </div>
+
+    <div id = "right-block">
+        <div>
+            フォローしている人</br>
+            <% @followers.each do |follower| %>
+                <div>
+                    <%= link_to follower.name + "@" + follower.username, "/users/show/" + follower.id.to_s %></br>
+                    --------------------------------</br>
+                </div>
             <% end %>
         </div>
-    <% end %>
+
+        <div>
+            最近のツイート</br>
+            <% @tweets.each do |tweet| %>
+                <div>
+                    <% if tweet.rtid == TYPE_NOT_RETWEET then %>
+                        <% send_tweet_id = tweet.id%>
+                        <%= link_to @user.name + "@" + @user.username, "/users/show/" + @user.id.to_s %>&nbsp;&nbsp;<%= write_time tweet.created_at %>
+                        <%= simple_format(h(tweet.content)) %>
+                    <% else %>
+                        <% original_tweet = Tweet.find_by(:id => tweet.rtid) %>
+                        <% original_user = User.find_by(:id => original_tweet.uid) %>
+                        <% send_tweet_id = original_tweet.id%>
+                        <%= link_to original_user.name + "@" + original_user.username, "/users/show/" + original_user.id.to_s %>&nbsp;&nbsp;<%= write_time original_tweet.created_at %>&nbsp;&nbsp;
+                        <%= link_to @user.name + "@" + @user.username, "/users/show/" + @user.id.to_s %>さんがリツイート
+                        <%= simple_format(h(original_tweet.content)) %>
+                    <% end %>
+                    <%= form_for Tweet.new do |f| %>
+                        <%= f.hidden_field :rtid, value: send_tweet_id %>
+                    <%= f.submit "RT" %></br>
+                    --------------------------------</br>
+                    <% end %>
+                </div>
+            <% end %>
+        </div>
+    </div>
 </div>
+</body>

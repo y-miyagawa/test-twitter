@@ -14,31 +14,43 @@
  *= require_self
  */
 
-a:      {color: #000000}
-a:hover {color: #ff8800}
+a           {color: #000000;
+            text-decoration: none}
+a:hover     {color: #ff8800}
 
-header  {border-bottom: solid 1px #aaaaaa;
-        margin-bottom: 30px;
-        padding: 5px}
+header      {width: 800px;
+            margin-left: auto;
+            margin-right: auto}
 
-nav     {text-align: right;
-        margin-top: -27px;
-        margin-bottom: 10px}
+#head-fixed {background-color: #ffffff;
+            z-index: 2;
+            position: fixed;
+            top: 0px;
+            border-bottom: solid 1px #aaaaaa;
+            padding: 5px}
 
-nav a   {color: #000000;
-        text-decoration: none}
+nav         {text-align: right;
+            width: 800px;
+            margin-top: -22px;
+            margin-bottom: 5px}
 
-nav ul  {list-style-type: none;
-        margin-top: 0;
-        margin-bottom: 0;
-        padding-left: 0;
-        font-size: 0} 
+nav ul      {list-style-type: none;
+            margin-top: 0;
+            margin-bottom: 0;
+            padding-left: 0;
+            font-size: 0} 
 
-nav li  {display: inline;
-        font-size: 12px;
-        border-right: solid 1px #aaaaaa;
-        padding-left: 10px;
-        padding-right: 10px
-}
+nav li      {display: inline;
+            font-size: 12px;
+            border-right: solid 1px #aaaaaa;
+            padding-left: 10px;
+            padding-right: 10px}
 
 nav li:first-child {border-left: solid 1px #aaaaaa}
+
+#container  {position: relative;
+            top: 35px;
+            width: 800px;
+            margin-left: auto;
+            margin-right: auto}
+

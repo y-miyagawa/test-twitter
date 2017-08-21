@@ -1,4 +1,5 @@
 <header>
+    <div id = "head-fixed">
     test-twitter
     <nav><ul>
         <li><%= link_to "トップ", "/tweets" %></li>
@@ -6,9 +7,10 @@
     <% flash.each do |key, value|%>
         <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
+    </div>
 </header>
 
-<div>
+<div id ="container">
     <h1>Log in</h1>
     <div>
         <%= form_for (:session) do |f| %>

@@ -2,28 +2,44 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-header  {border-bottom: solid 1px #aaaaaa;
-        margin-bottom: 30px;
-        padding: 5px}
+#user-block     {position: fixed;
+                top: 65px;
+                float: left;
+                width: 200px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                border: solid 1px #aaaaaa;
+                padding : 30px}
 
-nav     {text-align: right;
-        margin-top: -27px;
-        margin-bottom: 10px}
+#user-head      {border-bottom: solid 1px #aaaaaa;
+                padding-bottom: 5px;
+                margin-bottom: 5px}
 
-nav a   {color: #000000;
-        text-decoration: none}
+#tweet-block    {potision: relative;
+                float: right;
+                width: 570px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box}
 
-nav ul  {list-style-type: none;
-        margin-top: 0;
-        margin-bottom: 0;
-        padding-left: 0;
-        font-size: 0} 
+#new-tweet-form {background-color: #ffffff;
+                z-index: 2;
+                position: fixed;
+                top: 36px;
+                width: 570px;
+                height: 100px;
+                -webkit-box-sizing: border-box;
+                -moz-box-sizing: border-box;
+                box-sizing: border-box;
+                border-bottom: solid 1px #aaaaaa;
+                padding: 30px}
 
-nav li  {display: inline;
-        font-size: 12px;
-        border-right: solid 1px #aaaaaa;
-        padding-left: 10px;
-        padding-right: 10px
-}
+#old-tweet-block    {position: relative;
+                    top: 100px}
 
-nav li:first-child {border-left: solid 1px #aaaaaa}
+.tweet-content  {margin :2px;
+                border: solid 1px #aaaaaa;
+                padding: 5px;}
+
+.tweet-head {border-bottom: solid 1px #aaaaaa}
