@@ -1,66 +1,63 @@
 <header>
     <div id = "head-fixed">
-    test-twitter
-    <nav><ul>
-        <li><%= link_to "ログアウト", "/logout" %></li>
-        <li><%= link_to "ユーザー一覧", "/users" %></li>
-    </ul></nav>
-    <% flash.each do |key, value|%>
-        <%= content_tag(:div, value, class: "#{key}") %>
-    <% end %>
+        <div id = "head-top">
+            test-twitter&nbsp;&nbsp;
+            <font size = "-1">ログイン中:</font><%= current_user.name %><font size = "-1">@<%= current_user.username %></font>
+        <nav><ul>
+            <li><%= link_to "マイページ", "/users/show/" + current_user.id.to_s %></li>
+            <li><%= link_to "ログアウト", "/logout" %></li>
+            <li><%= link_to "ユーザー一覧", "/users" %></li>
+            </ul></nav>
+        </div>
+        <div id = "head-bottom">
+            <% flash.each do |key, value|%>
+                <%= content_tag(:div, value, class: "#{key}") %>
+            <% end %>
+        </div>
     </div>
 </header>
 
 <body>
 <div id = "container">
-    <div id = "user-block">
-        <div id = "user-head">
-            <font size = "-1">ログイン中:</font></br>
-            <font size = "+2"><%= current_user.name %></font>
-            </br>@<%= current_user.username %>
-        </div>
-        <%= link_to "マイページ", "/users/show/" + current_user.id.to_s %>
-    </div>
-
-    <div id = "tweet-block">
-        <div id = "new-tweet-form">
+    <div id = "right-tweet-form">
+        <div id = "right-tweet-form-fixed">
             <%= form_for Tweet.new do |f| %>
                 <%= f.text_area :content %>
                 <%= f.hidden_field :rtid, value: TYPE_NOT_RETWEET %>
                 <%= f.submit "ツイートする"%>
             <% end %>
         </div>
+    </div>
 
-        <div id = "old-tweet-block">
-            <% @tweets.each do |tweet| %>
-                <div class = "tweet-content">
-                    <% user = User.find_by(:id => tweet.uid) %>
-                    <% if tweet.rtid == TYPE_NOT_RETWEET then %>
-                        <% send_tweet_id = tweet.id%>
-                        <div class = "tweet-head">
-                            <%= link_to raw(user.name + "<font size = '-1'>@" + user.username + "</font>"), "/users/show/" + user.id.to_s %>&nbsp;&nbsp;
-                            <%= write_time tweet.created_at %>
-                        </div>
-                        <%= simple_format(h(tweet.content)) %>
-                    <% else %>
-                        <% original_tweet = Tweet.find_by(:id => tweet.rtid) %>
-                        <% original_user = User.find_by(:id => original_tweet.uid) %>
-                        <% send_tweet_id = original_tweet.id%>
-                        <div class ="tweet-head">
-                            <%= link_to raw(original_user.name + "<font size = '-1'>@" + original_user.username + "</font>"), "/users/show/" + original_user.id.to_s %>&nbsp;&nbsp;<%= write_time original_tweet.created_at %>&nbsp;&nbsp;
-                            <font size = "-1">
-                                <%= link_to raw(user.name + "@" + user.username), "/users/show/" + user.id.to_s %>さんがリツイート
-                            </font>
-                        </div>
-                        <%= simple_format(h(original_tweet.content)) %>
-                    <% end %>
-                    <%= form_for Tweet.new do |f| %>
-                        <%= f.hidden_field :rtid, value: send_tweet_id %>
-                        <%= f.submit "リツイートする" %></br>
-                    <% end %>
-                </div>
-            <% end %>
-        </div>
+    <div id = "left-tweet-block">
+        <% @tweets.each do |tweet| %>
+            <div class = "tweet-content">
+                <% user = User.find_by(:id => tweet.uid) %>
+                <% if tweet.rtid == TYPE_NOT_RETWEET then %>
+                    <% send_tweet_id = tweet.id%>
+                    <div class = "tweet-head">
+                        <%= link_to raw(user.name + "<font size = '-1'>@" + user.username + "</font>"), "/users/show/" + user.id.to_s %>&nbsp;&nbsp;
+                        <%= write_time tweet.created_at %>
+                    </div>
+                    <%= simple_format(h(tweet.content)) %>
+                <% else %>
+                    <% original_tweet = Tweet.find_by(:id => tweet.rtid) %>
+                    <% original_user = User.find_by(:id => original_tweet.uid) %>
+                    <% send_tweet_id = original_tweet.id%>
+                    <div class ="tweet-head">
+                        <%= link_to raw(original_user.name + "<font size = '-1'>@" + original_user.username + "</font>"), "/users/show/" + original_user.id.to_s %>&nbsp;&nbsp;<%= write_time original_tweet.created_at %>&nbsp;&nbsp;
+                        <font size = "-1">
+                            <%= link_to raw(user.name + "@" + user.username), "/users/show/" + user.id.to_s %>さんがリツイート
+                        </font>
+                    </div>
+                    <%= simple_format(h(original_tweet.content)) %>
+                <% end %>
+                <%= form_for Tweet.new do |f| %>
+                    <%= f.hidden_field :rtid, value: send_tweet_id %>
+                    <%= f.submit "リツイートする" %></br>
+                <% end %>
+            </div>
+        <% end %>
     </div>
 </div>
 </body>

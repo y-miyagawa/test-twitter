@@ -26,8 +26,11 @@ header      {width: 800px;
             z-index: 2;
             position: fixed;
             top: 0px;
-            border-bottom: solid 1px #aaaaaa;
             padding: 5px}
+
+#head-top   {border-bottom: solid 1px #aaaaaa}
+#head-bottom    {border-bottom: solid 1px #aaaaaa;
+                margin-top: -1px}
 
 nav         {text-align: right;
             width: 800px;
