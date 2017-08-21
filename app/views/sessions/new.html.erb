@@ -1,4 +1,12 @@
-<div><%= link_to "トップ", "/tweets" %></div>
+<header>
+    test-twitter
+    <nav><ul>
+        <li><%= link_to "トップ", "/tweets" %></li>
+    </ul></nav>
+    <% flash.each do |key, value|%>
+        <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+</header>
 
 <div>
     <h1>Log in</h1>

@@ -1,4 +1,20 @@
-<div><%= link_to "トップ", "/tweets" %></div>
+<header>
+    test-twitter
+    <nav><ul>
+        <li><%= link_to "トップ", "/tweets" %></li>
+        <% if logged_in? then %>
+        <li><%= link_to "ログアウト", "/logout" %></li>
+        <li><%= link_to "マイページ", "/users/show/" + current_user.id.to_s %></li>
+        <% else %>
+        <li><%= link_to "ログイン", "/login" %></li>
+        <% end %>
+    </ul></nav>
+    <% flash.each do |key, value|%>
+        <%= content_tag(:div, value, class: "#{key}") %>
+    <% end %>
+</header>
+
+
 
 <div>
     ユーザー一覧</br>

@@ -42,8 +42,8 @@ class TweetsController < ApplicationController
     else
         if Tweet.find_by(id: params[:tweet][:rtid].to_i).uid != current_user.id then
                 t = Tweet.find_or_create_by(uid: current_user.id, rtid: params[:tweet][:rtid].to_i)
+            flash[:success] = "リツイートしました！"
         end
-        flash[:success] = "リツイートしました！"
         redirect_to :action => "main"
     end
   end

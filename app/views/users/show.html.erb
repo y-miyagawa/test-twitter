@@ -1,10 +1,33 @@
-<div><%= link_to "トップ", "/tweets" %>
-    <%if logged_in? then %>
-    &nbsp;&nbsp;<%= link_to "ユーザー一覧", "/users" %></div>
+<header>
+    test-twitter
+    <nav><ul>
+        <li><%= link_to "トップ", "/tweets" %></li>
+        <% if logged_in? then %>
+        <li><%= link_to "ユーザー一覧", "/users" %></li>
+        <% end %>
+    </ul></nav>
+    <% flash.each do |key, value|%>
+        <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
+</header>
+
 <div>
     <h1><%= @user.name + "@" + @user.username %></h1>
-    <p><%= simple_format(h(@user.about)) %><p>
+    <p><%= simple_format(h(@user.about)) %></p>
+    <% if logged_in? && current_user.id != @user.id then %>
+        <p>
+        <% if Follow.find_by(uid: current_user.id, fid: @user.id) == nil then %>
+            あなたはこのユーザーをフォローしていません</br>
+        <% else %>
+            あなたはこのユーザーをフォローしています</br>
+        <% end %>
+        <% if Follow.find_by(uid: @user.id, fid: current_user.id) == nil then %>
+            このユーザーをあなたをフォローしていません
+        <% else %>
+            このユーザーはあなたをフォローしています
+        <% end %>
+        </p>
+    <% end %>
 </div>
 
 <div>
