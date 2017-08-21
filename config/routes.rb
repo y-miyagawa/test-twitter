@@ -14,10 +14,10 @@ Rails.application.routes.draw do
     post 'tweets' => "tweets#create"
     
     get "users" => "users#index"
-    get 'users/index'
     get 'users/show/:uid' => "users#show"
     
     post "users" => "follows#create"
+    post "users/show/*" => "tweets#create"
     #get 'follows/index'
     #get 'follows/create'
     

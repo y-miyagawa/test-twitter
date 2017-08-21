@@ -8,7 +8,8 @@ class UsersController < ApplicationController
 
   def show
       @user = User.find(params[:uid])
-      @followers = User.find_by_sql(["SELECT users.id AS id, name, username, t.created_at FROM users JOIN (SELECT fid, created_at FROM follows where uid = ?) AS t ON users.id = fid", @user.id])      
+      @followers = User.find_by_sql(["SELECT users.id AS id, name, username, t.created_at FROM users JOIN (SELECT fid, created_at FROM follows where uid = ?) AS t ON users.id = fid", @user.id])
+      @tweets = User.find_by_sql(["SELECT * FROM tweets WHERE uid = ?", @user.id])
   end
     
   def create

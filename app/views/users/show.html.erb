@@ -3,8 +3,8 @@
     &nbsp;&nbsp;<%= link_to "ユーザー一覧", "/users" %></div>
     <% end %>
 <div>
-    <h1><%= @user[:name]+"@"+@user[:username] %></h1>
-    <p><%= simple_format(h(@user[:about])) %><p>
+    <h1><%= @user.name + "@" + @user.username %></h1>
+    <p><%= simple_format(h(@user.about)) %><p>
 </div>
 
 <div>
@@ -12,7 +12,32 @@
     <% @followers.each do |follower| %>
         <div>
             <%= link_to follower.name + "@" + follower.username, "/users/show/" + follower.id.to_s %></br>
-            ------------------------------</br>
-    </div>
+            --------------------------------</br>
+        </div>
+    <% end %>
+</div>
+
+<div>
+    最近のツイート</br>
+    <% @tweets.each do |tweet| %>
+        <div>
+            <% if tweet.rtid == TYPE_NOT_RETWEET then %>
+                <% send_tweet_id = tweet.id%>
+                <%= link_to @user.name + "@" + @user.username, "/users/show/" + @user.id.to_s %>&nbsp;&nbsp;<%= write_time tweet.created_at %>
+                <%= simple_format(h(tweet.content)) %>
+            <% else %>
+                <% original_tweet = Tweet.find_by(:id => tweet.rtid) %>
+                <% original_user = User.find_by(:id => original_tweet.uid) %>
+                <% send_tweet_id = original_tweet.id%>
+                <%= link_to original_user.name + "@" + original_user.username, "/users/show/" + original_user.id.to_s %>&nbsp;&nbsp;<%= write_time original_tweet.created_at %>&nbsp;&nbsp;
+                <%= link_to @user.name + "@" + @user.username, "/users/show/" + @user.id.to_s %>さんがリツイート
+                <%= simple_format(h(original_tweet.content)) %>
+            <% end %>
+            <%= form_for Tweet.new do |f| %>
+                <%= f.hidden_field :rtid, value: send_tweet_id %>
+            <%= f.submit "RT" %></br>
+            --------------------------------</br>
+            <% end %>
+        </div>
     <% end %>
 </div>
